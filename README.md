@@ -1,56 +1,41 @@
-# Welcome to your Expo app 👋
+# Plant-AI
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Offline-first crop diagnosis and agronomy guidance for smallholder farmers.
 
-## Get started
+Plant-AI uses local image embeddings for the scan decision and local Gemma for farmer-friendly reasoning. The admin panel creates embeddings for verified crop disease reference images, saves them in Supabase, and the mobile app syncs them locally with Supastash/SQLite. When a farmer scans a leaf offline, the phone creates the query embedding with the same model, searches local reference embeddings, retrieves treatments/guides, and uses Gemma to explain the answer.
 
-1. Install dependencies
+## Current Architecture
 
-   ```bash
-   npm install
-   ```
+- **Image embedding model:** MobileCLIP-S0 by default.
+- **Mobile runtime:** ONNX Runtime React Native for the MobileCLIP image encoder.
+- **Admin runtime:** same MobileCLIP model via ONNX Runtime Node in the Next.js admin project.
+- **Language model:** Gemma GGUF through `llama.rn` for explanation, JSON formatting, language output, and follow-up chat. It is not the primary visual classifier.
+- **Sync:** Supabase + Supastash, with SQLite snapshot for first install and deltas afterward.
+- **Offline scan:** local image embedding -> local similarity search -> local knowledge retrieval -> local Gemma answer.
 
-2. Start the app
+## Docs
 
-   ```bash
-   npx expo start
-   ```
+1. [Project overview](docs/00-overview.md)
+2. [Mobile app plan](docs/01-mobile-app-plan.md)
+3. [Admin panel plan](docs/02-admin-panel-plan.md)
+4. [Backend Supabase plan](docs/03-backend-supabase-plan.md)
+5. [Local embedding retrieval plan](docs/04-local-retrieval-plan.md)
+6. [Data ingestion plan](docs/05-data-ingestion-plan.md)
+7. [Build roadmap](docs/06-build-roadmap.md)
+8. [Design plan](docs/07-design-plan.md)
+9. [Mobile screens with uniwind](docs/08-mobile-screens-uniwind.md)
 
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+## Development
 
 ```bash
-npm run reset-project
+bun install
+npx tsc --noEmit
+npx expo-doctor
+npm run start
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+Expo lint is configured with `eslint.config.js`; run:
 
-### Other setup steps
-
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+```bash
+./node_modules/.bin/eslint src app.config.ts metro.config.js
+```

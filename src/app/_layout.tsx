@@ -1,16 +1,43 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import React from 'react';
-import { useColorScheme } from 'react-native';
+import "@/global.css";
+import "@/lib/supastash";
+import { Stack } from "expo-router";
+import React from "react";
+import { SafeAreaProvider, SafeAreaListener } from "react-native-safe-area-context";
+import { Uniwind } from "uniwind";
+import { SessionProvider, useSession } from "@/lib/auth/session";
+import { SplashScreenController } from "@/lib/auth/splash";
 
-import { AnimatedSplashOverlay } from '@/components/animated-icon';
-import AppTabs from '@/components/app-tabs';
-
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
+export default function RootLayout() {
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <AnimatedSplashOverlay />
-      <AppTabs />
-    </ThemeProvider>
+    <SessionProvider>
+      <SplashScreenController />
+      <RootNavigator />
+    </SessionProvider>
+  );
+}
+
+function RootNavigator() {
+  const { session } = useSession();
+
+  return (
+    <SafeAreaProvider>
+      <SafeAreaListener
+        onChange={({ insets }) => {
+          Uniwind.updateInsets(insets);
+        }}
+      >
+        <Stack screenOptions={{ headerShown: false }}>
+          <Stack.Protected guard={Boolean(session)}>
+            <Stack.Screen name="index" />
+            <Stack.Screen name="(tabs)" />
+            <Stack.Screen name="scan/result/[id]" />
+          </Stack.Protected>
+
+          <Stack.Protected guard={!session}>
+            <Stack.Screen name="onboarding" />
+          </Stack.Protected>
+        </Stack>
+      </SafeAreaListener>
+    </SafeAreaProvider>
   );
 }

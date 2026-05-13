@@ -1,9 +1,128 @@
-:root {
-  --font-display:
-    Spline Sans, Inter, ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji,
-    Segoe UI Symbol, Noto Color Emoji;
-  --font-mono:
-    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
-  --font-rounded: 'SF Pro Rounded', 'Hiragino Maru Gothic ProN', Meiryo, 'MS PGothic', sans-serif;
-  --font-serif: Georgia, 'Times New Roman', serif;
+@import "tailwindcss";
+@import "uniwind";
+
+@layer theme {
+  :root {
+    @variant light {
+      --color-background: #f7f7f4;
+      --color-surface: #ffffff;
+      --color-surface-elevated: #ffffff;
+      --color-card: #ffffff;
+      --color-overlay: rgba(0, 0, 0, 0.4);
+      --color-scrim: rgba(0, 0, 0, 0.6);
+
+      --color-foreground: #1a2818;
+      --color-foreground-secondary: #4d5b4a;
+      --color-foreground-muted: #87908a;
+      --color-foreground-inverse: #ffffff;
+      --color-foreground-on-primary: #ffffff;
+
+      --color-border: #e5e7e1;
+      --color-border-strong: #c9cdc4;
+      --color-divider: #eef0eb;
+
+      --color-primary: #2e7d3a;
+      --color-primary-hover: #266b30;
+      --color-primary-muted: #e6f1e8;
+      --color-primary-on: #ffffff;
+      --color-secondary: #b27d2e;
+      --color-secondary-on: #ffffff;
+      --color-accent: #ffb547;
+
+      --color-success: #2e7d3a;
+      --color-success-muted: #e6f1e8;
+      --color-warning: #c08600;
+      --color-warning-muted: #fff3d6;
+      --color-danger: #b3261e;
+      --color-danger-muted: #fce8e6;
+      --color-info: #2e6fb3;
+      --color-info-muted: #e0ecf9;
+
+      --color-severity-mild: #2e7d3a;
+      --color-severity-moderate: #c08600;
+      --color-severity-severe: #b3261e;
+      --color-confidence-low: #b3261e;
+      --color-confidence-mid: #c08600;
+      --color-confidence-high: #2e7d3a;
+      --color-crop-wheat: #d4a72c;
+      --color-crop-rice: #6e9c3d;
+      --color-crop-cotton: #9aa6a3;
+      --color-crop-tomato: #c84a3a;
+      --color-crop-sugarcane: #6f8a4a;
+      --color-crop-maize: #d18b1f;
+      --color-ai: #2e7d3a;
+      --color-ai-muted: #e6f1e8;
+      --color-voice: #2e6fb3;
+    }
+
+    @variant dark {
+      --color-background: #0e120d;
+      --color-surface: #161b15;
+      --color-surface-elevated: #1c221a;
+      --color-card: #1c221a;
+      --color-overlay: rgba(0, 0, 0, 0.6);
+      --color-scrim: rgba(0, 0, 0, 0.75);
+
+      --color-foreground: #e9eee6;
+      --color-foreground-secondary: #b3bcad;
+      --color-foreground-muted: #7d877a;
+      --color-foreground-inverse: #0e120d;
+      --color-foreground-on-primary: #0e120d;
+
+      --color-border: #2a3128;
+      --color-border-strong: #3a4337;
+      --color-divider: #232924;
+
+      --color-primary: #4ea35a;
+      --color-primary-hover: #5fbc6c;
+      --color-primary-muted: #1c2c20;
+      --color-primary-on: #0e120d;
+      --color-secondary: #d29a4f;
+      --color-secondary-on: #0e120d;
+      --color-accent: #ffc266;
+
+      --color-success: #4ea35a;
+      --color-success-muted: #1c2c20;
+      --color-warning: #e0a83a;
+      --color-warning-muted: #2c2516;
+      --color-danger: #e6584d;
+      --color-danger-muted: #2c1816;
+      --color-info: #6aa3e0;
+      --color-info-muted: #16222c;
+
+      --color-severity-mild: #4ea35a;
+      --color-severity-moderate: #e0a83a;
+      --color-severity-severe: #e6584d;
+      --color-confidence-low: #e6584d;
+      --color-confidence-mid: #e0a83a;
+      --color-confidence-high: #4ea35a;
+      --color-crop-wheat: #e3bc4c;
+      --color-crop-rice: #8cba5a;
+      --color-crop-cotton: #c1cdc9;
+      --color-crop-tomato: #e57063;
+      --color-crop-sugarcane: #93b16b;
+      --color-crop-maize: #e8a945;
+      --color-ai: #4ea35a;
+      --color-ai-muted: #1c2c20;
+      --color-voice: #6aa3e0;
+    }
+
+    --font-sans: "Inter";
+    --font-display: "Inter";
+    --font-mono: "JetBrainsMono";
+
+    --text-xs: 11;
+    --text-sm: 13;
+    --text-base: 16;
+    --text-lg: 18;
+    --text-xl: 20;
+    --text-2xl: 24;
+    --text-3xl: 30;
+    --text-4xl: 36;
+
+    --leading-tight: 1.2;
+    --leading-snug: 1.35;
+    --leading-normal: 1.5;
+    --leading-relaxed: 1.7;
+  }
 }
