@@ -6,11 +6,11 @@ import { Pressable, Text, View } from "react-native";
 import { cn } from "@/lib/cn";
 
 const tabLabels: Record<string, string> = {
-  index: "Home",
+  home: "Home",
   scan: "Scan",
-  ask: "Ask",
+  advisor: "Advisor",
   fields: "Fields",
-  more: "More",
+  me: "Me",
 };
 
 export default function TabLayout() {
@@ -21,11 +21,12 @@ export default function TabLayout() {
         headerShown: false,
       }}
     >
-      <Tabs.Screen name="index" options={{ title: "Home" }} />
+      <Tabs.Screen name="index" options={{ href: null }} />
+      <Tabs.Screen name="home" options={{ title: "Home" }} />
       <Tabs.Screen name="scan" options={{ title: "Scan" }} />
-      <Tabs.Screen name="ask" options={{ title: "Ask" }} />
+      <Tabs.Screen name="advisor" options={{ title: "Advisor" }} />
       <Tabs.Screen name="fields" options={{ title: "Fields" }} />
-      <Tabs.Screen name="more" options={{ title: "More" }} />
+      <Tabs.Screen name="me" options={{ title: "Me" }} />
     </Tabs>
   );
 }
@@ -68,7 +69,7 @@ function TabIcon({ name, className }: { name: string; className: string }) {
     return <MaterialCommunityIcons className={className} name="file-search-outline" size={24} />;
   }
 
-  if (name === "ask") {
+  if (name === "advisor") {
     return <Ionicons className={className} name="chatbubble-ellipses-outline" size={23} />;
   }
 
@@ -76,7 +77,7 @@ function TabIcon({ name, className }: { name: string; className: string }) {
     return <MaterialCommunityIcons className={className} name="sprout-outline" size={24} />;
   }
 
-  if (name === "more") {
+  if (name === "me") {
     return <Ionicons className={className} name="settings-outline" size={23} />;
   }
 

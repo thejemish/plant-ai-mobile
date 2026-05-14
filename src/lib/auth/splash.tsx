@@ -4,14 +4,14 @@ import { useSession } from "@/lib/auth/session";
 
 void SplashScreen.preventAutoHideAsync();
 
-export function SplashScreenController() {
+export function SplashScreenController({ dbReady }: { dbReady: boolean }) {
   const { isLoading } = useSession();
 
   useEffect(() => {
-    if (!isLoading) {
+    if (!isLoading && dbReady) {
       void SplashScreen.hideAsync();
     }
-  }, [isLoading]);
+  }, [dbReady, isLoading]);
 
   return null;
 }

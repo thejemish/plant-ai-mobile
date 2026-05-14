@@ -5,7 +5,10 @@ import type { EvidenceMatch, OfflineScanDataset } from "@/lib/scan/types";
 const DISEASES = [
   { diseaseId: "tomato-early-blight", diseaseLabel: "Tomato early blight", crop: "tomato" },
   { diseaseId: "tomato-late-blight", diseaseLabel: "Tomato late blight", crop: "tomato" },
+  { diseaseId: "tomato-healthy", diseaseLabel: "Healthy tomato leaf", crop: "tomato" },
   { diseaseId: "rice-leaf-blast", diseaseLabel: "Rice leaf blast", crop: "rice" },
+  { diseaseId: "rice-brown-spot", diseaseLabel: "Rice brown spot", crop: "rice" },
+  { diseaseId: "rice-healthy", diseaseLabel: "Healthy rice leaf", crop: "rice" },
 ] as const;
 
 function seededUnitVector(seed: number) {
@@ -97,6 +100,24 @@ export function createDemoScanDataset(): OfflineScanDataset {
         chemical: ["Use locally recommended blast fungicide if the disease is spreading."],
         prevent: ["Prefer tolerant varieties and keep field records by season."],
       },
+      "tomato-healthy": {
+        immediate: ["No disease action is needed; keep monitoring the canopy."],
+        organic: ["Maintain airflow and remove dead lower leaves."],
+        chemical: ["Do not spray without symptoms or local advisory need."],
+        prevent: ["Keep mulch in place and water at soil level."],
+      },
+      "rice-brown-spot": {
+        immediate: ["Check for small brown oval lesions and review field nutrition."],
+        organic: ["Improve potassium balance and avoid plant stress where possible."],
+        chemical: ["Use locally approved fungicide only if disease is spreading."],
+        prevent: ["Use clean seed and balanced fertilization next season."],
+      },
+      "rice-healthy": {
+        immediate: ["No disease action is needed; inspect again after weather changes."],
+        organic: ["Maintain balanced nutrition and field hygiene."],
+        chemical: ["Do not spray without a confirmed disease trigger."],
+        prevent: ["Keep seasonal notes for variety and field performance."],
+      },
     },
     citationsByDiseaseId: {
       "tomato-early-blight": [
@@ -123,6 +144,27 @@ export function createDemoScanDataset(): OfflineScanDataset {
           ref: "Local guide",
           chunkId: "demo-rice-leaf-blast-1",
           text: "Rice blast lesions are often spindle shaped with gray centers.",
+        },
+      ],
+      "tomato-healthy": [
+        {
+          ref: "Local guide",
+          chunkId: "demo-tomato-healthy-1",
+          text: "Healthy tomato leaves should not trigger pesticide action without visible disease signs.",
+        },
+      ],
+      "rice-brown-spot": [
+        {
+          ref: "Local guide",
+          chunkId: "demo-rice-brown-spot-1",
+          text: "Rice brown spot often appears as small oval brown lesions and can worsen under plant stress.",
+        },
+      ],
+      "rice-healthy": [
+        {
+          ref: "Local guide",
+          chunkId: "demo-rice-healthy-1",
+          text: "Healthy rice leaves should be monitored after rain, fertilizer changes, or pest pressure.",
         },
       ],
     },

@@ -64,6 +64,7 @@ export default function ScanResultScreen() {
         </View>
 
         <Header result={result} />
+        <GemmaPanel result={result} />
         <Evidence result={result} />
         <ConfidenceBreakdown result={result} />
         <Candidates result={result} />
@@ -73,12 +74,67 @@ export default function ScanResultScreen() {
 
       <View className="absolute bottom-0 left-0 right-0 border-t border-border bg-card px-4 pb-safe-or-3 pt-3">
         <Pressable
-          onPress={() => router.replace("/scan")}
+          onPress={() => router.push(`/treatment/${result.id}`)}
           className="h-12 flex-row items-center justify-center gap-2 rounded-xl bg-primary"
         >
-          <MaterialCommunityIcons className="text-primary-on" name="camera-retake-outline" size={21} />
-          <Text className="text-base font-semibold text-primary-on">Scan another leaf</Text>
+          <MaterialCommunityIcons className="text-primary-on" name="clipboard-check-outline" size={21} />
+          <Text className="text-base font-semibold text-primary-on">Open treatment plan</Text>
         </Pressable>
+      </View>
+    </View>
+  );
+}
+
+function GemmaPanel({ result }: { result: OfflineScanResult }) {
+  const gemma = result.gemma;
+
+  if (!gemma) {
+    return null;
+  }
+
+  const title =
+    gemma.status === "complete"
+      ? "Gemma vision diagnosis"
+      : gemma.status === "error"
+        ? "Gemma fallback"
+        : "Gemma not loaded";
+
+  return (
+    <View className="mb-4 px-4">
+      <Text className="mb-2 text-xs font-semibold uppercase text-foreground-muted">Gemma</Text>
+      <View className="rounded-lg border border-border bg-card p-4">
+        <View className="flex-row items-start gap-3">
+          <MaterialCommunityIcons className="text-ai" name="brain" size={24} />
+          <View className="flex-1">
+            <Text className="text-base font-bold text-foreground">{title}</Text>
+            <Text className="mt-1 text-sm leading-normal text-foreground-secondary">
+              {gemma.status === "complete"
+                ? "Structured JSON returned from the on-device vision-language model."
+                : gemma.error ?? gemma.rawText ?? "Load the model to run direct vision diagnosis."}
+            </Text>
+          </View>
+        </View>
+
+        {gemma.json?.symptoms.length ? (
+          <View className="mt-4">
+            <Text className="mb-2 text-sm font-semibold text-foreground">Symptoms</Text>
+            {gemma.json.symptoms.slice(0, 4).map((symptom) => (
+              <View className="mb-1 flex-row gap-2" key={symptom}>
+                <Text className="text-primary">{"\u2022"}</Text>
+                <Text className="flex-1 text-sm leading-normal text-foreground-secondary">{symptom}</Text>
+              </View>
+            ))}
+          </View>
+        ) : null}
+
+        {gemma.json?.differential.length ? (
+          <View className="mt-4">
+            <Text className="mb-2 text-sm font-semibold text-foreground">Differential</Text>
+            <Text className="text-sm leading-normal text-foreground-secondary">
+              {gemma.json.differential.slice(0, 3).join(" · ")}
+            </Text>
+          </View>
+        ) : null}
       </View>
     </View>
   );
@@ -143,7 +199,7 @@ function EvidenceCard({
   tone: "query" | "match" | "other";
   uri?: string;
 }) {
-  const showImage = uri && !uri.startsWith("plant-ai-demo://");
+  const showImage = uri && !uri.startsWith("plant-ai-demo://") && !uri.startsWith("plant-ai-symptoms://");
 
   return (
     <View className="w-32">

@@ -1,11 +1,11 @@
 export const CORE_ARCHITECTURE_DECISIONS = [
   {
     decision: "Primary scan decision",
-    value: "Image embedding similarity, not Gemma",
+    value: "Gemma vision diagnosis through llama.rn",
   },
   {
-    decision: "Default embedding model",
-    value: "MobileCLIP-S0",
+    decision: "Reference evidence model",
+    value: "MobileCLIP-S0 for retrieval evidence only",
   },
   {
     decision: "Admin/mobile parity",
@@ -21,7 +21,7 @@ export const CORE_ARCHITECTURE_DECISIONS = [
   },
   {
     decision: "Gemma responsibility",
-    value: "Explain retrieved evidence and answer follow-up questions",
+    value: "Diagnose, explain retrieved evidence, and answer follow-up questions",
   },
 ] as const;
 

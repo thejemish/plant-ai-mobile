@@ -51,6 +51,30 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       },
     ],
     ["expo-build-properties"],
+    [
+      "expo-camera",
+      {
+        cameraPermission: "Allow Plant-AI to capture leaf photos for on-device diagnosis.",
+      },
+    ],
+    [
+      "expo-image-picker",
+      {
+        photosPermission: "Allow Plant-AI to choose leaf photos from your library.",
+      },
+    ],
+    [
+      "expo-notifications",
+      {
+        defaultChannel: "crop-calendar",
+      },
+    ],
+    [
+      "expo-location",
+      {
+        locationWhenInUsePermission: "Allow Plant-AI to use field location for local weather advisory.",
+      },
+    ],
     "onnxruntime-react-native",
     [
       "llama.rn",

@@ -1,4 +1,5 @@
 import type { RetrievalMatch } from "@/lib/embedding/vector";
+import type { GemmaDiagnosisState } from "@/features/scan/gemma-diagnosis";
 
 export type ScanQualitySignals = {
   blurVariance?: number;
@@ -66,6 +67,7 @@ export type OfflineScanResult = {
   treatment: TreatmentSection;
   citations: GuideCitation[];
   lowConfidenceReason?: string;
+  gemma?: GemmaDiagnosisState;
 };
 
 export type OfflineScanDataset = {
